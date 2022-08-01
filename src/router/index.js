@@ -35,6 +35,12 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/PasswordForgetView.vue"),
   },
   {
+    path: "/payment",
+    name: "payment",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/PaymentView.vue"),
+  },
+  {
     path: "/user",
     name: "user",
     component: () => import("../views/auth/DashboardView.vue"),
