@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-success">
     <div class="container-fluid">
-      <a class="navbar-brand" href="javascript:void(0)">Truggle Payement</a>
+      <router-link class="navbar-brand" to="/">PayServicia</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -11,15 +11,18 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mynavbar">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)">Link</a>
+        <ul class="navbar-nav ms-auto">
+          
+          <li class="nav-mr-lg-4">
+            <router-link class="nav-link" to="/docs">Docs</router-link>
+          </li>
+          <li class="nav-mr-lg-4">
+            <router-link class="nav-link" to="/signup">S'inscire</router-link>
+          </li>
+          <li class="nav-mr-lg-4">
+            <router-link class="nav-link" to="/login">Se connecter</router-link>
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="text" placeholder="Search" />
-          <button class="btn btn-primary" type="button">Search</button>
-        </form>
       </div>
     </div>
   </nav>
