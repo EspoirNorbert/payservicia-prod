@@ -16,26 +16,29 @@
                     type="mail"
                     id="email"
                     class="form-control"
+                    v-model="email"
                   />
                   
                 </div>
 
                 <div class="form-outline">
-                  <label class="form-label" for="lastName">Password</label>
+                  <label class="form-label" for="password">Password</label>
                   <input
                     type="password"
-                    id="lastName"
+                    id="password"
                     class="form-control"
+                    v-model="password"
                   />
                   
                 </div>
                 
                 <div class="form-outline">
-                   <label class="form-label" for="lastName">Confirm password</label>
+                   <label class="form-label" for="confirm_password">Confirm password</label>
                   <input
                     type="password"
-                    id="lastName"
+                    id="confirm_password"
                     class="form-control"
+                    v-model="confirm_password"
                   />
                  
                 </div>
@@ -45,6 +48,7 @@
                     class="btn btn-primary btn-lg btn-block"
                     type="submit"
                     value="Submit"
+                    @click="handleClickedSubmit($event)"
                   />
                 </div>
               </form>
@@ -56,34 +60,76 @@
   </section>
 </template>
 <script>
+import AuthService from '@/services/AuthService';
+
 export default {
   name: "SignupView",
   components: {
     //HelloWorld,
   },
+  data() {
+    return {
+      email : null,
+      password : null,
+      confirm_password : null
+    }
+  },
+  methods: {
+    
+    isFieldEmpty() {
+        if (this.email=="" || this.password=="" || this.confirm_password == ""){
+          this.$toasted.show("Fields are empty ! All field is required");
+          return true
+        }
+        return false
+    },
+    isPasswordMatching() {
+        if(this.password != this.confirm_password) {
+          this.$toasted.show("Password and confirm password not matching");
+          return false
+        };
+        return true;
+    },
+    async handleClickedSubmit(event) {
+      event.preventDefault();
+      const data = {
+        "email" : this.email,
+        "password" :this.password,
+        "password_confirmation" : this.confirm_password
+      }
+
+      console.log(data);
+        if(!this.isFieldEmpty()){
+
+            if (this.isPasswordMatching()){
+                try {
+                  const response = await AuthService.signup(data);
+                  if (response.data){
+                      const result = response.data;
+                      this.$toasted.info(result.message);
+                      // redirect vers la page d'authentification
+                      this.$router.push("login");
+                  }
+                  
+                } catch (error) {
+                  console.log(error);
+                  if (error.response){
+                    const data = error.response.data.error;
+                    console.log(data);
+                    this.$toasted.error(data.message);
+                  }
+                  //this.$toasted.error("An Error occured " + error.message);
+                  //return { error }
+                }
+            }
+        }
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.gradient-custom {
-  /* fallback for old browsers */
-  background: #f093fb;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(
-    to bottom right,
-    rgba(240, 147, 251, 1),
-    rgba(245, 87, 108, 1)
-  );
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(
-    to bottom right,
-    rgba(240, 147, 251, 1),
-    rgba(245, 87, 108, 1)
-  );
-}
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
   font-size: 1rem;
