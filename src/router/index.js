@@ -71,10 +71,15 @@ const routes = [
       },
     ],
   },
+  {
+    path: '*',
+    name: 'catchAll',
+    component: HomeView
+ }
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
 });
 
 export default router;
