@@ -1,8 +1,25 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import AuthService from "@/services/AuthService";
 
 Vue.use(VueRouter);
+
+function guardMyroute(to, from, next) {
+  if (AuthService.isAuth()) {
+    next(); // allow to enter route
+  } else {
+    next("/login"); // go to '/login';
+  }
+}
+
+function guardForAuthenticatedUser(to, from, next) {
+  if (!AuthService.isAuth()) {
+    next(); // allow to enter route
+  } else {
+    next("/user/dashboard"); // go to '/login';
+  }
+}
 
 const routes = [
   {
@@ -13,12 +30,14 @@ const routes = [
   {
     path: "/login",
     name: "login",
+    beforeEnter: guardForAuthenticatedUser,
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/LoginView.vue"),
   },
   {
     path: "/signup",
     name: "signup",
+    beforeEnter: guardForAuthenticatedUser,
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/SignupView.vue"),
   },
@@ -29,53 +48,37 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/DocsView.vue"),
   },
   {
-    path: "/password-forget",
-    name: "password-forget",
+    path: "/reset-password",
+    name: "resetpassword",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/PasswordForgetView.vue"),
   },
   {
-    path: "/payment",
-    name: "payment",
+    path: "/user/dashboard",
+    name: "user.dashboard",
+    beforeEnter: guardMyroute,
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/PaymentView.vue"),
+      import(/* webpackChunkName: "about" */ "../views/auth/DashboardView.vue"),
   },
   {
-    path: "/user",
-    name: "user",
-    component: () => import("../views/auth/DashboardView.vue"),
-    children: [
-      {
-        path: "dashboard",
-        name: "dashboard",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "../views/auth/DashboardView.vue"
-          ),
-      },
-      {
-        path: "settings",
-        name: "settings",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "../views/auth/SettingView.vue"
-          ),
-      },
-      {
-        path: "sandbox",
-        name: "sandbox",
-        component: () =>
-          import(
-            /* webpackChunkName: "about" */ "../views/auth/SandBoxView.vue"
-          ),
-      },
-    ],
+    path: "/user/settings",
+    name: "user.settings",
+    beforeEnter: guardMyroute,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/auth/SettingView.vue"),
   },
   {
-    path: '*',
-    name: 'catchAll',
-    component: HomeView
- }
+    path: "/user/sandbox",
+    name: "user.sandbox",
+    beforeEnter: guardMyroute,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/auth/SandBoxView.vue"),
+  },
+  {
+    path: "*",
+    name: "catchAll",
+    component: HomeView,
+  },
 ];
 
 const router = new VueRouter({

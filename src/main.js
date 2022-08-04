@@ -4,6 +4,11 @@ import router from "./router";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Toasted from 'vue-toasted';
+
+import "@/assets/css/style.css"
+import "@/assets/css/global.css"
+
+
 Vue.use(Toasted,{
   duration: 1500,
   position: 'top-left', // ['top-right', 'top-center', 'top-left', 'bottom-right', 'bottom-center', 'bottom-left']

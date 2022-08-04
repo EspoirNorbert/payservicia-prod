@@ -10,15 +10,15 @@ export default class AuthService {
        return await http.post("/auth/login",data);
     }
     
-    static saveToken(token){
-        window.localStorage.setItem("token" , token);
+    static async saveToken(token){
+        await window.localStorage.setItem("token" , token);
     }
 
-    static getAuth() {
-        if (window.localStorage.getItem(token) != null){
-            return true;
+    static isAuth() {
+        if (window.localStorage.getItem("token") == null){
+            return false;
         }
-        return false;
+        return true;
     }
 
     static getAuthToken() {
@@ -26,4 +26,10 @@ export default class AuthService {
            return window.localStorage.getItem("token");
        }
     }
+
+    static async logout() {
+        await window.localStorage.clear();
+    }
+
+
 }
