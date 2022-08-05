@@ -12,6 +12,10 @@
         consulter tout moment.
       </p>
     </div>
+    <h2>Les clients  ({{ customerList.length  }}) </h2>
+    <hr>
+    <button class="btn btn-success">Ajouter un client</button>
+    <hr>
     <table class="table table-bordered">
       <thead>
         <tr class="bg-success text-white">
@@ -27,10 +31,9 @@
           <td>{{ item.email }}</td>
           <td>{{ item.account.balance }} FCFA</td>
           <td>
-            <button class="btn btn-success gap-2" @click="handleAchat(item.id)">Achat</button>
-            <button class="btn btn-success">Transactions</button>
-            
-             <router-link to=""></router-link>
+            <button class="btn btn-success me-3" @click="handleAchat(item.id)">Achat</button>
+            <button class="btn btn-success me-3">Transactions</button>
+            <button class="btn btn-danger">Supprimer</button>
           </td>
         </tr>
       </tbody>

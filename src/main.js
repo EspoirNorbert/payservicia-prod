@@ -8,9 +8,10 @@ import Toasted from 'vue-toasted';
 import "@/assets/css/style.css"
 import "@/assets/css/global.css"
 
+Vue.use(require('vue-moment'));
 
 Vue.use(Toasted,{
-  duration: 1500,
+  duration: 5500,
   position: 'top-left', // ['top-right', 'top-center', 'top-left', 'bottom-right', 'bottom-center', 'bottom-left']
   theme: 'outline', // ['toasted-primary', 'outline', 'bubble']
   iconPack: 'fontawesome' // ['material', 'fontawesome', 'mdi', 'custom-class', 'callback']

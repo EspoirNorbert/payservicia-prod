@@ -2,6 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AuthService from "@/services/AuthService";
+import SandboxLayout from '@/layout/SandboxLayout'
+import CustomerComponent from '@/components/CustomerComponent'
+import PurchaseComponent from '@/components/PurchaseComponent'
+import ArticleComponent from '@/components/ArticleComponent'
+import TransactionDetail from '@/components/TransactionDetail'
 
 Vue.use(VueRouter);
 
@@ -69,10 +74,34 @@ const routes = [
   },
   {
     path: "/user/sandbox",
-    name: "user.sandbox",
     beforeEnter: guardMyroute,
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/auth/SandBoxView.vue"),
+    component: SandboxLayout,
+    children: [
+      {
+        path: "",
+        component: () =>
+            import(/* webpackChunkName: "about" */ "../views/auth/SandBoxView.vue"),
+      },
+      {
+        path: "customers",
+        component: CustomerComponent
+      },
+      {
+        path: "purchase",
+        component: PurchaseComponent,
+      },
+      {
+        path: "purchase/:id/articles",
+        component: ArticleComponent,
+      },
+      {
+        path: "purchase/:customerId/transactions/:transactionId",
+        component: TransactionDetail,
+        props: {
+          default: true,
+        },
+      }
+    ]
   },
   {
     path: "*",

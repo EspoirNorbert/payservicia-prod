@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar />
-    <ToastNotification/>
+
     <router-view />
   </div>
 </template>

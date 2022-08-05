@@ -22,6 +22,18 @@ export default class UserService {
         })
     }
 
+    static async getOneTransaction(customerID , transactionId){
+        return await (await http.get(`/user/customers/${customerID}/transactions/${transactionId}` , 
+            {headers: {'Authorization' : `Bearer ${token}`}})).data;
+    }
+
+    static async getTransactionArticles(customerID , transactionId){
+        return await http.get(`/user/customers/${customerID}/transactions/${transactionId}/articles` , 
+            {headers: {'Authorization' : `Bearer ${token}`}});
+    }
+
+
+
 
     static async getAllCustomers(){
         return await http.get("/user/customers" , {headers: {
