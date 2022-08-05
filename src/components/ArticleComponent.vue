@@ -2,9 +2,11 @@
   <div>
     <div class="articles-header d-flex">
       <h2><span class="badge bg-success">2</span> Choisir des articles</h2>
-      <router-link class="btn btn-success ms-3" to="/user/sandbox/purchase"
-        >Retour</router-link
-      >
+      <div class="float-sm-end">
+        <router-link class="btn btn-success ms-3 " to="/user/sandbox/purchase"
+        ><i class="bi bi-backspace"></i> Retour</router-link>
+      </div>
+  
     </div>
     <p>
       <span

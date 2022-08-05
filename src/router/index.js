@@ -7,6 +7,7 @@ import CustomerComponent from '@/components/CustomerComponent'
 import PurchaseComponent from '@/components/PurchaseComponent'
 import ArticleComponent from '@/components/ArticleComponent'
 import TransactionDetail from '@/components/TransactionDetail'
+import FormCustomer from '@/components/FormCustomer'
 
 Vue.use(VueRouter);
 
@@ -85,6 +86,10 @@ const routes = [
       {
         path: "customers",
         component: CustomerComponent
+      },
+      {
+        path: "customers/create",
+        component: FormCustomer
       },
       {
         path: "purchase",

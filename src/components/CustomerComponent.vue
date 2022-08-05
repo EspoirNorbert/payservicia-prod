@@ -14,8 +14,11 @@
     </div>
     <h2>Les clients  ({{ customerList.length  }}) </h2>
     <hr>
-    <button class="btn btn-success">Ajouter un client</button>
+    <router-link to="customers/create" class="btn btn-success">Ajouter un client</router-link>
     <hr>
+    <div class="table-responsive">
+
+ 
     <table class="table table-bordered">
       <thead>
         <tr class="bg-success text-white">
@@ -31,13 +34,17 @@
           <td>{{ item.email }}</td>
           <td>{{ item.account.balance }} FCFA</td>
           <td>
-            <button class="btn btn-success me-3" @click="handleAchat(item.id)">Achat</button>
-            <button class="btn btn-success me-3">Transactions</button>
+            <router-link class="btn btn-success me-3" 
+             :to="'/user/sandbox/purchase/' + item.id + '/articles'"
+             >Achat</router-link>
+            <router-link :to="'/user/customers/' + item.id + '/transactions'" 
+              class="btn btn-success me-3">Transactions</router-link>
             <button class="btn btn-danger">Supprimer</button>
           </td>
         </tr>
       </tbody>
     </table>
+       </div>
   </div>
 </template>
 
@@ -49,6 +56,7 @@ export default {
   data() {
     return {
       customerList: [],
+      isLoaded: false
     };
   },
   mounted() {

@@ -8,7 +8,7 @@
               <h3 class="text-primary"> <i class="bi bi-person-circle"></i> {{ title }} </h3>
             </div>
             <div class="p-4">
-              <form action="">
+              <form @submit.prevent="handleClickedSubmit()">
                 <div class="input-group mb-3">
                   <span class="input-group-text bg-primary"
                     ><i class="bi bi-envelope text-white"></i
@@ -18,6 +18,8 @@
                     class="form-control"
                     placeholder="Email"
                     autocomplete="false"
+                    v-model="email"
+                    required
                   />
                 </div>
                    <div class="input-group mb-3">
@@ -28,6 +30,8 @@
                     type="password"
                     class="form-control"
                     placeholder="Mot de passe"
+                    v-model="password"
+                    required
                   />
                 </div>
                 <div class="input-group mb-3">
@@ -38,37 +42,22 @@
                     type="password"
                     class="form-control"
                     placeholder="Confirmation du mot de passe"
+                    v-model="confirm_password"
+                    required
                   />
                 </div>
                 <div class="d-grid col-12 mx-auto">
-                  <button class="btn btn-primary" type="button">
+                  <button class="btn btn-primary" type="submit">
                     <span></span> {{ buttonText}}
                   </button>
                 </div>
-                 <p class="mt-3" v-if="typeForm == 'login'">
-                    <router-link to="" ><span>Mot de passe oublié ?</span></router-link>
-                </p>
-                <p class="">
-                    {{  typeForm== "signup" ? "Vous avez déjà un compte ?" : "Vous n'avez pas encore de compte ?"  }}
-                 
+            
+                <p v-if="userType  == 'signin'">
+                   Vous avez déjà un compte ?
                   <span  
                   @click="goToPage()"
-                  class="text-primary spanForm"> {{typeForm == "signup" ? "Connectez-vous" : " Inscrivez-vous gratuitement"}} </span>
+                  class="text-primary spanForm"> Connectez-vous </span>
                 </p>
-                <div v-if="typeForm == 'login'" class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-            <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-            <button type="button" class="btn btn-primary btn-floating mx-1">
-             <i class="bi bi-facebook"></i>
-            </button>
-
-            <button type="button" class="btn btn-primary btn-floating mx-1">
-             <i class="bi bi-google"></i>
-            </button>
-
-          </div>
-
-         
-               
               </form>
             </div>
           </div>
@@ -85,10 +74,9 @@ import UserService from "@/services/UserService";
 export default {
   name: "FormUserComponent",
   props: {
-    title : {String},
-    buttonText : {String},
-    userType : {String},
-    typeForm : {String}
+    title : {type: String},
+    buttonText : {type: String},
+    userType : {type: String}
   },
   data() {
     return {
@@ -101,6 +89,9 @@ export default {
       submitedText: "Sign in",
     };
   },
+created () {
+  
+},
   methods: {
     isFieldEmpty() {
       if (
@@ -131,15 +122,22 @@ export default {
       if (!this.isFieldEmpty()) {
         if (this.isPasswordMatching()) {
           try {
+          console.log("Type " + this.userType);
+        
             let response = null;
-            if (this.userType == "customer")
-              response = await UserService.createCustomer(data);
-            else response = await AuthService.signup(data);
+            if (this.userType == "customer"){ console.log("called");
+              response = await UserService.createCustomer(data);}
+            else 
+                response = await AuthService.signup(data);
             if (response.data) {
               const result = response.data;
               this.$toasted.info(result.message);
               // redirect vers la page d'authentification
-              this.$router.push("login");
+
+              if (this.userType == "customer"){
+                this.$router.push({path: "/user/sandbox/customers"})
+              } else
+                this.$router.push("login");
             }
           } catch (error) {
             console.log(error);

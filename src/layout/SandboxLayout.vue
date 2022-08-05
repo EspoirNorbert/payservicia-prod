@@ -1,7 +1,7 @@
 <template>
   <div class="sandbox">
-    <div class="text-white bg-success">
-      <h2 class="p-3">Sandbox</h2>
+    <div class="text-white bg-success sandboxHeader">
+      <h2 class="p-3 text-white">Sandbox</h2>
     </div>
     <div class="row">
       <div class="col-md-2">
@@ -10,7 +10,7 @@
       <div class="col-md-10">
        <div class="container">
           <!-- Hear que sera charger le contenue -->
-          <div class="card">
+          <div class="card border-0">
             <div class="card-body">
               <router-view></router-view>
             </div>
@@ -35,5 +35,9 @@ export default {
 <style scoped>
 .sandbox{
   overflow: hidden;
+}
+.sandboxHeader{
+  color: #fff;
+  height: 10vh;
 }
 </style>
