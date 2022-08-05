@@ -8,6 +8,7 @@ import PurchaseComponent from '@/components/PurchaseComponent'
 import ArticleComponent from '@/components/ArticleComponent'
 import TransactionDetail from '@/components/TransactionDetail'
 import FormCustomer from '@/components/FormCustomer'
+import TransactionComponent from '@/components/TransactionComponent'
 
 Vue.use(VueRouter);
 
@@ -77,6 +78,7 @@ const routes = [
     path: "/user/sandbox",
     beforeEnter: guardMyroute,
     component: SandboxLayout,
+    name:"sandbox",
     children: [
       {
         path: "",
@@ -85,15 +87,21 @@ const routes = [
       },
       {
         path: "customers",
-        component: CustomerComponent
+        component: CustomerComponent,
+        name:"customers"
       },
       {
         path: "customers/create",
         component: FormCustomer
       },
       {
+        path: "customers/:id/transactions",
+        component: TransactionComponent
+      },
+      {
         path: "purchase",
         component: PurchaseComponent,
+        name:"purchase"
       },
       {
         path: "purchase/:id/articles",

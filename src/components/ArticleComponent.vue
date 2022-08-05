@@ -6,13 +6,10 @@
         <router-link class="btn btn-success ms-3 " to="/user/sandbox/purchase"
         ><i class="bi bi-backspace"></i> Retour</router-link>
       </div>
-  
     </div>
-    <p>
-      <span
-        >CustomerID ({{ customerID == null ? "...loading" : customerID }})</span
-      >
-    </p>
+     <LoadingComponent v-if="loading" />
+    <div v-else class="articles-body">
+      <p><span>CustomerID ({{ customerID == null ? "...loading" : customerID }})</span></p>
     <hr />
     <div class="row">
       <div class="col-md-8">
@@ -24,7 +21,7 @@
             class="col-12 col-sm-8 col-md-6 col-lg-4 mb-5 mr-3"
           >
             <div class="card">
-              <img :src="item.image== null ? item.image : defautImage" width="1" class="card-img-top" alt="..." />
+              <img :src="item.image" width="1" class="card-img-top" alt="..." />
               <div class="card-body">
                 <h5 class="card-title elipse">{{ item.title }}</h5>
                 <p class="card-text">{{ item.price }} FCFA</p>
@@ -59,6 +56,9 @@
             <div class="ms-auto badge badge-success">
               <span class="badge bg-success">{{ article.quantity }} </span>
             </div>
+             <button 
+             @click="handleClickDelete(article.id)"
+             class="btn btn-danger p-2" style="width:36px"><i class="bi bi-trash"></i></button>
           </div>
           <div class="border-top px-2 mx-2"></div>
           <div class="p-2 d-flex pt-3">
@@ -72,9 +72,9 @@
               <p class="ms-auto"> Montant a payer <span class="ps-2 text-success fw-bold"> {{ totalPrice }} FCFA </span> </p>
              <div class="d-grid">
                 <button type="button"
-                :disabled="isLoaded" 
+                :disabled="isSent" 
                 @click="handleClickPayement()"
-                class="btn btn-primary btn-block"> {{ !isLoaded ? "Proceder au payement" : "Processus de paiement en cours...." }} </button>
+                class="btn btn-primary btn-block"> {{ !isSent ? "Proceder au payement" : "Processus de paiement en cours...." }} </button>
               <router-link to="">xxxxxx</router-link>
             </div>
           </div>
@@ -82,23 +82,30 @@
         </div>
       </div>
     </div>
+    </div>
+  
   </div>
 </template>
 
 <script>
 import ProductService from "@/services/ProductService";
 import UserService from '@/services/UserService'
+import LoadingComponent from '@/components/LoadingComponent'
 
 export default {
   name: "ArticleComponent",
+  components: {
+    LoadingComponent
+  },
   data() {
     return {
       customerID: null,
       productListData: [],
       articleToPaidList: [],
       totalPrice: null,
-      isLoaded :false,
-      defautImage : "/img/product.png"
+      loading :false,
+      defautImage : "/img/product.png",
+      isSent : false,
     };
   },
   methods: {
@@ -107,6 +114,7 @@ export default {
       const article = this.productListData.find((article) => article.id == id);
       if (article != null) {
         const articleToAdd = {
+          id : article.id,
           name: article.title,
           unitPrice: article.price,
           quantity: 1,
@@ -117,6 +125,17 @@ export default {
         this.calculTotalPrice();
         this.checkIfArticleIsAlreadyAdded(id);
       }
+    },
+    handleClickDelete(id){
+      this.updateProductStatus(id);
+      this.articleToPaidList = this.articleToPaidList.filter(item => item.id!= id);
+      this.$toasted.show(`L'article N°${id} a été supprimer de la liste`);
+    },
+    updateProductStatus(id) {
+      console.log("Id " + id);
+      let produit = this.productListData.find((article) => article.id == id)
+      if (produit !=null)
+          produit.isAdded = false;
     },
     checkIfArticleIsAlreadyAdded(id) {
       let produit = this.productListData.find((article) => article.id == id)
@@ -131,18 +150,18 @@ export default {
         for (const product of data) {
             const newProduit = {
             id :product.id,
-            url: product.url,
             image:product.image,
             title:product.title,
             price:product.price,
             isAdded: false
         }
+        console.log(newProduit.image);
         this.productListData.push(newProduit);
         this.productListData = this.productListData.slice(0, 10);
         }
     },
     async handleClickPayement(){
-        this.isLoaded = true;
+        this.isSent = true;
         const data = {
             "totalPrice" : this.totalPrice,
             "articles" : this.articleToPaidList,
@@ -151,7 +170,7 @@ export default {
             const resultat = await (await UserService.createTransaction(data , this.customerID)).data;
 
             if (resultat.code == 200){
-               this.isLoaded = false;
+               this.isSent = false;
                 this.$toasted.show("Les articles ont été payé avec success");
                 this.$toasted.show("Vous allez voir les details de la transactions");
 
@@ -175,11 +194,13 @@ export default {
         this.calculTotalPrice();
       },
   },
-  mounted() {
+  created() {
+    this.loading = true;
     ProductService.getProduit()
       .then((response) => response.json())
       .then((data) => {
         this.addProduit(data);
+        this.loading= false
       });
     this.customerID = this.$route.params.id;
   },

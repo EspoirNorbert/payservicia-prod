@@ -14,12 +14,25 @@ export default class UserService {
         })
     }
 
+    static async deleteCustomer(id){
+        return await http.delete("/user/customers/"+id , {
+            headers: {
+              'Authorization': `Bearer ${token}` 
+            }
+        })
+    }
+
     static async createTransaction(data , customerID){
         return await http.post("/user/customers/"+ customerID+"/transactions" , data, {
             headers: {
               'Authorization': `Bearer ${token}` 
             }
         })
+    }
+
+    static async getAllTransactions(customerID){
+        return await http.get(`/user/customers/${customerID}/transactions/` , 
+            {headers: {'Authorization' : `Bearer ${token}`}});
     }
 
     static async getOneTransaction(customerID , transactionId){
@@ -31,9 +44,6 @@ export default class UserService {
         return await http.get(`/user/customers/${customerID}/transactions/${transactionId}/articles` , 
             {headers: {'Authorization' : `Bearer ${token}`}});
     }
-
-
-
 
     static async getAllCustomers(){
         return await http.get("/user/customers" , {headers: {

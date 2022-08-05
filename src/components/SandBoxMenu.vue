@@ -3,54 +3,36 @@
     class="d-flex flex-column flex-shrink-0 p-3 mt-0 bg-dark"
     style="height: 1000px"
   >
-    <a
-      href="/"
-      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-    >
-      <i class="bi bi-list"></i>
-      <span class="fs-4">Menu</span>
-    </a>
-
-    <ul class="nav nav-pills flex-column mb-auto">
+    <ul class="nav nav-pills flex-column mb-auto ">
       <li class="nav-item">
         <router-link 
-        class="nav-link"  aria-current="page"
-        @click="changeCurrentPage('home')"
-        :class="currentPage == 'home' ? 'active' : ''"
+        class="nav-link text-white" 
+        :class="currentRouteName == 'home' ? 'active' : ''"
         to="/user/sandbox">
         <i class="bi bi-house"></i>
-          Home
+          {{ HomeRouterName.name }} 
         </router-link>
       </li>
       <li>
         <router-link
           class="nav-link text-white"
-          aria-current="page"
-           @click="changeCurrentPage('clients')"
-             :class="currentPage == 'clients' ? 'active' : ''"
+         
+          :class="currentRouteName == 'customers' ? 'active' : ''"
           to="/user/sandbox/customers"
+         
         >
-         <i class="bi bi-people"></i>  Clients
+         <i class="bi bi-people"></i>  {{customerRouterName.name}}
         </router-link>
       </li>
       <li>
         <router-link
           class="nav-link text-white"
-          aria-current="page"
-          to="/user/sandbox/customers"
-        >
-        <i class="bi bi-wallet"></i>
-        Transactions
-        </router-link>
-      </li>
-      <li>
-        <router-link
-          class="nav-link text-white"
-          aria-current="page"
+          :class="currentRouteName == 'purchase' ? 'active' : ''"
+         
           to="/user/sandbox/purchase"
         >
         <i class="bi bi-credit-card"></i>
-          Simulation d'un paiement
+          {{  purchaseRouterName.name }} 
         </router-link>
       </li>
     </ul>
@@ -64,12 +46,33 @@ export default {
   data() {
     return {
       isActive : true,
-      currentPage: "home"
+      currentPage: "home",
+      customerRouterName: {
+        name : "Clients",
+        pathName : "customers"
+      },
+      HomeRouterName: {
+        name : "Home",
+        pathName : "home"
+      },
+      purchaseRouterName: {
+        name : " Simulation d'un paiement ",
+        pathName : "purchase"
+      },
     }
   },
   methods: {
     changeCurrentPage(value){
       this.currentPage = value
+    }
+  },
+  computed: {
+     currentRouteName() {
+       
+        if (this.$route.name == undefined){
+          return "home";
+        }
+        return this.$route.name;
     }
   }
 };

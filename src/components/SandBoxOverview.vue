@@ -1,8 +1,9 @@
 <template>
   <div class="d-flex justify-content-center">
     <div class="p5 text-center">
-      <h2>Payservica SandBox</h2>
+      <h2><i class="bi bi-box"></i> Payservica SandBox</h2>
       <p>Bienvenue dans la sandbox de payservicia</p>
+     
       <p>
         Vous pouvez effectuer des tests des payements dans cette espace<br />
         De la creation d'utilisateur de test jusqu'a des transactions A chaque

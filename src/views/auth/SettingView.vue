@@ -3,9 +3,12 @@
     <div class="container">
       <div class="card mt-4 mb-4">
         <div class="card-header bg-success">
-          <div class="card-title text-white"><h2>Settings</h2></div>
+          <div class="card-title">
+            <h2 class="text-white"><i class="bi bi-gear"></i> Settings</h2>
+          </div>
         </div>
-        <div class="card-body">
+         <LoadingComponent v-if="loading" />
+        <div v-else class="card-body">
           <div class="row">
             <div class="col-md-4">
               <AccountComponent 
@@ -34,24 +37,38 @@
 import AccountComponent from '@/components/AccountComponent';
 import ProfilComponent from '@/components/ProfilComponent';
 import UserService from '@/services/UserService';
+import LoadingComponent from '@/components/LoadingComponent';
 
 export default {
   name: "SettingView",
   components: {
     AccountComponent,
-    ProfilComponent
+    ProfilComponent,
+    LoadingComponent
   },
   data() {
     return {
+      loading: false,
       user : null,
     };
   } , 
-  async mounted () {
+  async created () {
+    this.loading = true;
       this.getUser();
   },
   methods: {
     async getUser() {
-        this.user = await UserService.getUserInfo();
+       try {
+          this.user = await UserService.getUserInfo();
+          this.loading = false;
+       } catch (error) {
+         if (error.response) {
+            const data = error.response.data;
+            console.log(data);
+            this.$toasted.error(data);
+            this.loading = false;
+        }
+       }
     },
     async updateProfil(data){
 

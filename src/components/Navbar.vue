@@ -16,29 +16,30 @@
         <ul class="navbar-nav ms-auto">
           
           <li class="nav-mr-lg-4" v-if="isAuth">
-            <router-link class="nav-link" to="/user/dashboard">Dashboard</router-link>
+            <router-link class="nav-link" to="/user/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</router-link>
           </li>
 
           <li class="nav-mr-lg-4">
-            <router-link class="nav-link" to="/docs">  {{  isAuth ? "API REST" : "Docs" }} </router-link>
+            <router-link class="nav-link" to="/docs"><i class="bi bi-book"></i>  {{  isAuth ? "API REST" : "Docs" }} </router-link>
           </li>
            <li class="nav-mr-lg-4" v-if="!isAuth">
-            <router-link class="nav-link" to="/signup">Signup</router-link>
+            <router-link class="nav-link" to="/signup"><i class="bi bi-person-plus-fill"></i> Signup</router-link>
           </li>
           <li class="nav-mr-lg-4" v-if="!isAuth">
-            <router-link class="nav-link" to="/login">Login</router-link>
+            <router-link class="nav-link" to="/login"><i class="bi bi-box-arrow-in-left"></i> Login</router-link>
           </li>
 
           <li class="nav-mr-lg-4" v-if="isAuth">
-            <router-link class="nav-link" to="/user/settings">Settings</router-link>
+            <router-link class="nav-link" to="/user/settings"><i class="bi bi-gear"></i> Settings</router-link>
           </li>
 
            <li class="nav-mr-lg-4" v-if="isAuth">
-            <router-link class="nav-link" to="/user/sandbox">Sandbox</router-link>
+            <router-link class="nav-link" to="/user/sandbox"><i class="bi bi-box"></i> Sandbox</router-link>
           </li>
 
            <li class="nav-mr-lg-4" v-if="isAuth">
-              <button class="btn btn border border-white bg-white" type="button" @click="logout()">Logout</button>
+              <button class="btn btn-success border border-white bg-success" type="button" @click="logout()">
+                <i class="bi bi-box-arrow-right"></i> Logout</button>
           </li>
         </ul>
       </div>
@@ -83,8 +84,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 nav {
-   border-bottom: 2px solid #213547;
-   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 10%);
+  border-bottom: 2px solid #213547;
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 10%);
   background: #fff
 }
 </style>

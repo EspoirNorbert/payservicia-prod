@@ -1,11 +1,12 @@
 <template>
   <div class="home">
     <div class="container">
-      <div class="card mt-4 mb-4">
+      <div  class="card mt-4 mb-4">
         <div class="card-header bg-success">
-          <div class="card-title text-white"><h4>Details de la transaction N°{{ transactionId }} </h4></div>
+          <div class="card-title "><h4 class="text-white">Details de la transaction N°{{ transactionId }} </h4></div>
         </div>
-        <div class="card-body">
+         <LoadingComponent v-if="loading" />
+        <div v-else class="card-body">
          <div class="row">
             <TransactionDetailInfoComponent
             classe="col-md-4"
@@ -84,12 +85,14 @@
 </template>
 <script>
 import UserService from '@/services/UserService';
-import TransactionDetailInfoComponent from '@/components/TransactionDetailInfoComponent'
+import TransactionDetailInfoComponent from '@/components/TransactionDetailInfoComponent';
+import LoadingComponent from '@/components/LoadingComponent'
 
 export default {
   name: "SettingView",
   components: {
-  TransactionDetailInfoComponent
+  TransactionDetailInfoComponent,
+  LoadingComponent
   },
   data() {
     return {
@@ -97,29 +100,31 @@ export default {
       transactionId : null,
       transaction: null,
       articles: [],
-      totalPrice : null
+      totalPrice : null,
+      loading: false
     };
   },
   async created () {
-      this.transactionId = this.$route.params.transactionId; 
-      this.customerId = this.$route.params.customerId; 
-      
-      this.transaction = await UserService.getOneTransaction(this.customerId, this.transactionId);
-      const data = await (await UserService.getTransactionArticles(this.customerId , this.transactionId)).data
-      this.articles = data.articles;
-      this.totalPrice = data.totalPrice;
+
+      this.loading = true;
+      try {
+        this.transactionId = this.$route.params.transactionId; 
+        this.customerId = this.$route.params.customerId; 
+        this.transaction = await UserService.getOneTransaction(this.customerId, this.transactionId);
+        const data = await (await UserService.getTransactionArticles(this.customerId , this.transactionId)).data
+        this.articles = data.articles;
+        this.totalPrice = data.totalArticleAmount;
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        this.loading = false;
+      } catch (error) {
+        
+      }
       
   },
   methods: {
     async getUser() {
       this.user = await UserService.getUserInfo();
-    },
-    format(){
-      
     }
-  },
-  updated () {
-    console.log("Updated call");
   }
 };
 </script>

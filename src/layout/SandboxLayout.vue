@@ -1,7 +1,7 @@
 <template>
   <div class="sandbox">
     <div class="text-white bg-success sandboxHeader">
-      <h2 class="p-3 text-white">Sandbox</h2>
+      <h2 class="p-3 text-white"><i class="bi bi-box"></i> Sandbox</h2>
     </div>
     <div class="row">
       <div class="col-md-2">

@@ -45,7 +45,7 @@
                 <div class="d-grid col-12 mx-auto">
                   <button 
                     :disabled="isSubmited"
-                    class="btn btn-primary" type="submit">
+                    class="btn btn-primary text-white" type="submit">
                     <span></span> {{ buttonText }}
                   </button>
                 </div>
@@ -100,7 +100,7 @@ export default {
       password: null,
       confirm_password: null,
       submitedText: "Sign in",
-      isSubmited : false
+      isSubmited : false,
     };
   },
   methods: {
