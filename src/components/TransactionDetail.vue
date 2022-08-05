@@ -113,7 +113,7 @@ export default {
         this.transaction = await UserService.getOneTransaction(this.customerId, this.transactionId);
         const data = await (await UserService.getTransactionArticles(this.customerId , this.transactionId)).data
         this.articles = data.articles;
-        this.totalPrice = data.totalArticleAmount;
+        this.totalPrice = this.articles.totalArticleAmount;
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         this.loading = false;
       } catch (error) {

@@ -1,4 +1,3 @@
-import httpCommon from "@/http-common"
 
 export default class ProductService {
 
