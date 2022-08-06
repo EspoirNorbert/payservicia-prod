@@ -58,12 +58,14 @@ Email et password
                 }
 
 
-| Code    | Code de la reponse envoyé par le serveur il peut etre 200 | 400 | 404 | 
+
+| Code    | Code de la reponse envoyé par le serveur il peut etre 200 -  404 - 400                    | 
 |---------|-------------------------------------------------------------------------------------------| 
 | Message | Message envoyé par le serveur pour la requette                                            | 
 | Status  | Status de la requette                                                                     | 
 | Données | Object contenue le token                                                                  | 
 | Token   | Clé d'authentification                                                                    | 
+
 
 # Creation de compte
 
