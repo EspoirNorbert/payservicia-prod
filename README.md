@@ -16,31 +16,13 @@ Tous les requettes sont envoyés au format **JSON**
 
 # Endpoints Disponibles
 
-Endpoint de base de tous les routes de l'API est : {{ endpointUrl }}
+Endpoint de base de tous les routes de l'API est : https://api-truggle-payement.herokuapp.com/v1.0
 
-Methods
-
-Endpoint
-
-Description
-
-GET
-
-/auth
-
-Elle concernant toutes les requettes d'authentification y compris l'inscription
-
-GET
-
-/user
-
-Elle concernant toutes les requettes de la gestion de l'utilisateurs
-
-GET
-
-/customers
-
-Elle concernant toutes les requettes de la gestion des clients et des payements
+| Methods | Endpoint   | Description                                                                         | 
+|---------|------------|-------------------------------------------------------------------------------------| 
+| GET     |  /auth     | Elle concernant toutes les requettes d'authentification y compris l'inscription     | 
+| GET     | /user      | Elle concernant toutes les requettes de la gestion de l'utilisateurs                | 
+| GET     | /customers | Elle concernant toutes les requettes de la gestion des clients et des payements     | 
 
 # Authentification
 
@@ -76,25 +58,12 @@ Email et password
                 }
 
 
-Code de la reponse
-
-Code de la reponse envoyé par le serveur il peut etre 200 | 400 | 404
-
-Message
-
-Message envoyé par le serveur pour la requette
-
-Status
-
-Status de la requette
-
-Données
-
-Object contenue le token
-
-Token
-
-Clé d'authentification
+| Code    | Code de la reponse envoyé par le serveur il peut etre 200 | 400 | 404 | 
+|---------|-------------------------------------------------------------------------------------------| 
+| Message | Message envoyé par le serveur pour la requette                                            | 
+| Status  | Status de la requette                                                                     | 
+| Données | Object contenue le token                                                                  | 
+| Token   | Clé d'authentification                                                                    | 
 
 # Creation de compte
 
@@ -127,62 +96,26 @@ Email , password et mot de passe de confirmation
                     "message": "User account successfully created"
                   }
 
+| Code    | Code la reponse envoyé par le serveur est 201  | 
+|---------|------------------------------------------------| 
+| Message | Message envoyé par le serveur pour la requette | 
+| Status  | Status de la requette                          | 
 
-Code de la reponse
-
-Code la reponse envoyé par le serveur est 201
-
-Message
-
-Message envoyé par le serveur pour la requette
-
-Status
-
-Status de la requette
 
 # Compte utilisateur
 
 Gerer le compte de l'utilisateur en mettant a jour son profile et son compte de paiement
 
-Endpoint de base : `{{ endpointUrl }}/user`
+Endpoint de base : `[https://api-truggle-payement.herokuapp.com/v1.0](https://api-truggle-payement.herokuapp.com/v1.0)`
 
 #### Endpoint de gestion des comptes
-
-Methods
-
-Endpoint
-
-Description
-
-GET
-
-/
-
-Afficher les informations de l'utilisateur
-
-GET
-
-/profil
-
-Recuperer les informations sur le profil
-
-GET
-
-/account
-
-Recuperer les informations du compte de payement
-
-PUT
-
-/profil
-
-Mets à jour le profil
-
-PUT
-
-/acccount
-
-Mets a jour le compte de l'utilisateur
+| Methods | Endpoint      | Description                                          | 
+|---------|---------------|------------------------------------------------------| 
+| GET     |     /         | Afficher les informations de l'utilisateur           | 
+| GET     |     /profil   |     Recuperer les informations sur le profil         | 
+| GET     |     /account  |     Recuperer les informations du compte de payement | 
+| PUT     |     /profil   |     Mets à jour le profil                            | 
+| PUT     |     /acccount |     Mets a jour le compte de l'utilisateur           | 
 
 ## Information Global
 
@@ -318,54 +251,14 @@ Creer des comptes clients et les managers .
 Endpoint de base : `{{ endpointUrl }}/customers`
 
 #### Endpoint de gestion des clients
+| Methodsn |     Endpoint             |     Description  Params                                                    | 
+|----------|--------------------------|------------------------------------------------------------------------------| 
+| GET      |     /                    | Recuperer tous les clients crées    Aucun                                    | 
+| GET      |     /:customerId         | Recuperer les informations d'un client    customerId - Identifiant du client | 
+| POST     |     /                    | Creer un client    Aucun                                                     | 
+| DELETE   |     /:customerId         | Supprimer le compte du client    Aucun                                       | 
+| PUT      |     /:customerId/account |     Mets a jour le compte du client    customerId - Identifiant du client    | 
 
-Methods
-
-Endpoint
-
-Description
-
-Params
-
-GET
-
-/
-
-Recuperer tous les clients crées
-
-Aucun
-
-GET
-
-/:customerId
-
-Recuperer les informations d'un client
-
-customerId - Identifiant du client
-
-POST
-
-/
-
-Creer un client
-
-Aucun
-
-DELETE
-
-/:customerId
-
-Supprimer le compte du client
-
-Aucun
-
-PUT
-
-/:customerId/account
-
-Mets a jour le compte du client
-
-customerId - Identifiant du client
 
 ## Obtenir la liste des clients
 
@@ -541,46 +434,13 @@ Effectuer des payements et suivrer vos transactions .
 Endpoint de base : `{{ endpointUrl }}/customers/:id/transactions`
 
 #### Endpoint de payements
+| Methods | Endpoint                 | Description                                                      | Params        | 
+|---------|--------------------------|------------------------------------------------------------------|---------------| 
+| GET     | /                        | Recuperer tous les transactions                                  | Aucun         | 
+| GET     | /:transactionId          | Recuperer les informations d'une transaction                     | transactionId | 
+| POST    |     /                    | Creer une transactions et effectuer le payement des articles     | [ ]           | 
+| GET     | /:transactionId/articles | Recuperer les articles d'une transactions                        | transactionId | 
 
-Methods
-
-Endpoint
-
-Description
-
-Params
-
-GET
-
-/
-
-Recuperer tous les transactions
-
-Aucun
-
-GET
-
-/:transactionId
-
-Recuperer les informations d'une transaction
-
-transactionId
-
-POST
-
-/
-
-Creer une transactions et effectuer le payement des articles
-
-\[ \]
-
-GET
-
-/:transactionId/articles
-
-Recuperer les articles d'une transactions
-
-transactionId
 
 ## Payer les articles
 

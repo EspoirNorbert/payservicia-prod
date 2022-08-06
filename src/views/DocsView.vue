@@ -170,7 +170,7 @@
                 <p>
                   Endpoint de base de tous les routes de l'API est :
                   <router-link :to="endpointUrl">
-                    {{ endpointUrl }}
+                    https://api-truggle-payement.herokuapp.com/v1.0
                   </router-link>
                 </p>
               </div>
