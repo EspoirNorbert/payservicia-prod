@@ -9,6 +9,11 @@ Rendez vous dans le dossier **app** puis lancer le script
 **start_server.sh** ou **start_server.bat**selon votre systeme.
 Si cela ne fonctionne pas  lancer les commandes suivantes :
 
+```
+    $ npm install
+    $ npm run serve
+```
+
 1. `npm install` pour lancer les dependances npm
 2. `npm run serve` pour demarrer le server
 
