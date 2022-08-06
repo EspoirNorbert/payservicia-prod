@@ -94,6 +94,9 @@ var spy = new Gumshoe('#docs-nav a', {
 var lightbox = new SimpleLightbox('.simplelightbox-gallery a', {/* options */});
 
 
+console.log("Call");
+
+
 
 
 
