@@ -1,12 +1,11 @@
 # Payservica : Payement Gateway System
 
 Payservicia est passerelle de payement qui vous permet de faire tout type
-de paiement comme par exemple des factures , des articles achetes en ligne .
-Il est facile a integrer dans votre application pour le payement
-He is easy to deploy and integrate in your application for payement
+de paiement comme par exemple des factures , des articles achetes en ligne.
+Il est facile a integrer dans votre application pour le payement.
 
-**Lien vers payservicia** `https://payservicia.herokuapp.com/`
-**Lien vers la documentation en ligne** `https://payservicia.herokuapp.com/docs`
+**Lien vers payservicia** [link](https://payservicia.herokuapp.com/){:target="_blank"} 
+**Lien vers la documentation en ligne** [link](https://payservicia.herokuapp.com/docs){:target="_blank"} 
 
 # Documentation de l'API REST de payservicia
 API REST Payservicia est une API qui a été mise en place pour pouvoir faciliter et simuler les systemes de payements d'articles en ligne. Elle est facile à utiliser et integrer dans votre systeme .
@@ -23,7 +22,8 @@ Tous les requettes sont envoyés au format **JSON**
 
 # Endpoints Disponibles
 
-Endpoint de base de tous les routes de l'API est : https://api-truggle-payement.herokuapp.com/v1.0
+Endpoint de base de tous les routes de l'API est : 
+[link](https://api-truggle-payement.herokuapp.com/v1.0){:target="_blank"} 
 
 | Methods | Endpoint   | Description                                                                         | 
 |---------|------------|-------------------------------------------------------------------------------------| 
