@@ -2,18 +2,18 @@ Credentials des utilisateurs tests :
 - Marchand
     - email : annasdickou257@gmail.com
     - password: test
-    - Solde : 0FCFA
+    - Solde : 2500
 
 - 2 Client de test
     
     1e client de test
-        - email : kuassiisrael@gmail.com
+        - email : servicia@test.com
         - password: test
-        - Solde : 10700 FCFA 
+        - Solde : 500 
     
-    2e client de test
-        -email : espoirnorbert@gmail.com
+    2eme client de test
+        -email : pay@test.com
         -password: test
-        -Solde : 1000 FCFA
+        -Solde : 37885
 
     

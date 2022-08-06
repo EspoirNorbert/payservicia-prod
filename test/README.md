@@ -1,10 +1,40 @@
 # Test de l'application payservica
+Tester l'application payservicia de bout en bout.
 
-# Connexion au compte
-Pour commencer les test rendez-vous a la page suivante
-https://payservicia.herokuapp.com/login
+# Code Fournis
+Le code minimal a testé se trouve dans le dossier **app**.
 
+# Demarrage
+Rendez vous dans le dossier **app** puis lancer le script 
+**start_server.sh** ou **start_server.bat**selon votre systeme.
+Si cela ne fonctionne pas  lancer les commandes suivantes :
+
+1. `npm install` pour lancer les dependances npm
+2. `npm run serve` pour demarrer le server
+
+`http://localhost:8080/` l'adresse du server de test par defaut
+Regarder l'adresse fourni par le server demarre dans le console pour lancer l'application.
+
+# Connexion au compte du marchand
+![SandBoxPage](test_home_page.png)
 Entrer les identifiants du marchand qui se trouve dans le le fichier *user_credentiels.txt*
 
-# Page de sandbox
-Allez au niveau de l'onglet sandbox de la 
+# Page de la sandbox
+![SandBoxPage](test_sandbox_page.png)
+Suivre le workflow pour faire le payement
+
+# Workflow à suivre pour simuler le payement
+1.  Cliquer sur le bouton **Simuler Achat & payement*** 
+![SandBoxPage](test_sandbox_page.png)
+2.  Choisir le client a test pour faire la transaction
+![SandBoxPage](test_choice_customer_page.png)
+3.  Chosir les articles 
+![SandBoxPage](test_choicie_articles.png)
+4.  Cliquer sur le bouton ***Procceder au payement** 
+![SandBoxPage](test_payement_articles.png.png)
+
+# Details de la transactions
+Une fois les articles payes vous verez un message de success ou d'erreur puis
+vous serrez rediriger vers la page des details de la transactions.
+![SandBoxPage](test_details_transaction.png)
+

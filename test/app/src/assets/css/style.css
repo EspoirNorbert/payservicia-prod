@@ -1,0 +1,16 @@
+.colorApp {
+    color:#28b76b 
+  }
+  
+  .bgColorApp {
+    background-color: #28b76b
+  }
+  
+  .border-radius {
+    border-radius: 15px;
+    border: 1px solid #28b76b
+  }
+
+  .w-size {
+    width: 75%;
+  }
