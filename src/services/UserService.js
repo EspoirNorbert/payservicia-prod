@@ -55,6 +55,11 @@ export default class UserService {
         return await (await http.get("/user" , {headers: { 'Authorization' : `Bearer ${token}`}})).data
     }
 
+    static async getCustomerInfo(customerId){
+        return await (await http.get("/user/customers/"+customerId , {headers: { 'Authorization' : `Bearer ${token}`}})).data
+    }
+
+
     static async updateUserProfil(data){
        return await (await http.put("/user/profile" ,data, {headers: { 'Authorization' : `Bearer ${token}`}})).data
     }

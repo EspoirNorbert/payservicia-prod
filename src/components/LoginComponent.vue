@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="container-fluid vh-100 mt-5">
+    <div class="container-fluid  mt-5">
       <div class="">
         <div class="rounded d-flex justify-content-center">
           <div class="col-md-4 col-sm-12 shadow-sm border-radius w-50 p-5 mb-3">
@@ -43,15 +43,15 @@
                   </p>
                 </div>
                 <div class="d-grid col-12 mx-auto">
-                  <button 
+                    <button 
                     :disabled="isSubmited"
                     class="btn btn-primary text-white" type="submit">
-                    <span></span> {{ buttonText }}
+                    <span></span> {{ isSubmited ?  "..loading"  :  buttonText}}
                   </button>
                 </div>
 
-                <div class="divider d-flex align-items-center mx-auto my-4">
-                  <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                <div class="text-dark d-flex align-items-center my-4">
+                  <p class="text-center fw-bold mx-3 mb-0 mx-auto text-muted text-dark">OR</p>
                 </div>
 
                 <div>
@@ -66,9 +66,8 @@
                 </div>
 
                 <p class="mt-5">
-                  <span> Vous n'avez pas encore de compte ?</span>
-                  <router-link class="text-primary spanForm" to="/signup"
-                    >Inscrivez-vous gratuitement</router-link
+                  <span> Vous n'avez pas encore de compte ? </span>
+                  <router-link class="text-primary spanForm" to="/signup">Inscrivez-vous gratuitement</router-link
                   >
                 </p>
               </form>
@@ -82,7 +81,6 @@
 
 <script>
 import AuthService from "@/services/AuthService";
-
 export default {
   name: "LoginComponent",
   props: {
@@ -112,20 +110,21 @@ export default {
       return false;
     },
     async handleClickedSubmit(event) {
-      this.submitedText = "....loading";
+      this.isSubmited = true;
  
       if (!this.isFieldEmpty()) {
         const data = { email: this.email, password: this.password };
         try {
+          this.isSubmited = true;
           const response = await (await AuthService.login(data)).data;
-          console.log(response);
           this.$toasted.info(response.message);
           await AuthService.saveToken(response.datas.token);
-          this.$router.push({ path: "/user/dashboard" });
+          this.submitedText = false;
+          window.location.href="/user/dashboard";
         } catch (error) {
           if (error.response) {
+            this.isSubmited = false;
             const data = error.response.data.error;
-            console.log(data);
             this.$toasted.error(data.message);
           }
         }

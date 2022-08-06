@@ -9,7 +9,7 @@
     </div>
      <LoadingComponent v-if="loading" />
     <div v-else class="articles-body">
-      <p><span>CustomerID ({{ customerID == null ? "...loading" : customerID }})</span></p>
+      <p><span>CustomerID ({{ customerInfo == null ? "...loading" : customerInfo.id + ' - ' + customerInfo.email }})</span></p>
     <hr />
     <div class="row">
       <div class="col-md-8">
@@ -75,7 +75,7 @@
                 :disabled="isSent" 
                 @click="handleClickPayement()"
                 class="btn btn-primary btn-block"> {{ !isSent ? "Proceder au payement" : "Processus de paiement en cours...." }} </button>
-              <router-link to="">xxxxxx</router-link>
+            
             </div>
           </div>
           
@@ -100,6 +100,7 @@ export default {
   data() {
     return {
       customerID: null,
+      customerInfo : null,
       productListData: [],
       articleToPaidList: [],
       totalPrice: null,
@@ -155,7 +156,6 @@ export default {
             price:product.price,
             isAdded: false
         }
-        console.log(newProduit.image);
         this.productListData.push(newProduit);
         this.productListData = this.productListData.slice(0, 10);
         }
@@ -171,21 +171,30 @@ export default {
 
             if (resultat.code == 200){
                this.isSent = false;
-                this.$toasted.show("Les articles ont été payé avec success");
-                this.$toasted.show("Vous allez voir les details de la transactions");
+                this.$toasted.show("Les articles ont été payé avec success \n Vous allez voir les details de la transactions");
+  
 
                 const detailTransaction =  resultat.datas;
                 const transactionID = detailTransaction.transaction._id;
 
-                this.$router.push({path: `/user/sandbox/purchase/${this.customerID}/transactions/${transactionID}`});
-            } 
-
-            if(resultat.code == 400){
-                  this.$toasted.show("Les articles non payée la transaction a été refusé");
-            }
+                setTimeout(() => {
+                  window.location.href=`/user/sandbox/purchase/${this.customerID}/transactions/${transactionID}`;
+                }, 2500);
+                
+              } 
             
         } catch (error) {
-            
+            if (error.response) {
+            this.isSent = false;
+            const data = error.response.data;
+            const transactionID = data.status._id;
+            this.$toasted.error(`Les articles n'ont pas été payées la transaction a été refusé ,le client n'a pas assez d'argent`);
+           
+            setTimeout(() => {
+                  window.location.href=`/user/sandbox/purchase/${this.customerID}/transactions/${transactionID}`;
+            }, 2500);
+                
+          }
         }
     }
   },
@@ -194,7 +203,7 @@ export default {
         this.calculTotalPrice();
       },
   },
-  created() {
+  async created() {
     this.loading = true;
     ProductService.getProduit()
       .then((response) => response.json())
@@ -203,6 +212,7 @@ export default {
         this.loading= false
       });
     this.customerID = this.$route.params.id;
+    this.customerInfo = await UserService.getCustomerInfo(this.customerID);
   },
 };
 </script>

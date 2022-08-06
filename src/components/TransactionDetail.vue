@@ -4,6 +4,11 @@
       <div  class="card mt-4 mb-4">
         <div class="card-header bg-success">
           <div class="card-title "><h4 class="text-white">Details de la transaction N°{{ transactionId }} </h4></div>
+        
+           <router-link class="btn btn-success ms-3 " 
+           :to="'/user/sandbox/customers/' + customerInfo.id + '/transactions/'"
+            
+            ><i class="bi bi-backspace"></i> Retour</router-link>
         </div>
          <LoadingComponent v-if="loading" />
         <div v-else class="card-body">
@@ -21,24 +26,24 @@
               <TransactionDetailInfoComponent
             classe="col-md-4"
             title="Status de la transaction"
-            :content="transaction.status"
+            :content="formatStatus"
            />
            </div>
             <div class="row">
             <TransactionDetailInfoComponent
             classe="col-md-4"
             title="Solde Actuel du client"
-            :content="transaction.amount"
+            :content="customerInfo.account.balance == null ? '....loading' : customerInfo.account.balance"
             />
             <TransactionDetailInfoComponent
             classe="col-md-4"
-            title="Solde Restant"
+            title="Solde Avant du client"
             :content="transaction.amount"
             />
             <TransactionDetailInfoComponent
             classe="col-md-4"
             title="Identifiant du client"
-            :content="customerId"
+            :content="customerId + ' '+ customerInfo.email"
            />
            </div>
             <div class="row">
@@ -46,30 +51,30 @@
             <TransactionDetailInfoComponent
             classe="col-md-6"
             title="Solde Actuel du marchand"
-            content="1899 FCFA"
+            :content="user.account.balance == null ? '....loading' : user.account.balance"
             />
             <TransactionDetailInfoComponent
             classe="col-md-6"
-            title="Solde Debité"
-            content="12:00"
+            title="Solde avant du marchand"
+            :content="getMerchandSolde"
             />
            </div>
                <hr>
            <div class="ro">
              <div class="col">
                <h6>Articles de la transactions</h6>
-               <p>Total price : {{ article}} </p>
+               <p>Prix total : {{ totalPrice}} XOF</p>
                <hr>
                <div class="list-group w-auto" v-if="articles.length!=0">
                 <a href="#" 
                 class="list-group-item list-group-item-action d-flex gap-3 py-3" 
                  v-for="(article, index) in articles" :key="index"
                  aria-current="true">
-                  <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                  <img src="../assets/product.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
                   <div class="d-flex gap-2 w-100 justify-content-between">
                     <div>
                       <h6 class="mb-0"> {{ article.name}} </h6>
-                      <p class="mb-0 opacity-75"> {{ article.unitPrice}} FCFA </p>
+                      <p class="mb-0 opacity-75"> {{ article.unitPrice}} </p>
                     </div>
                     <small class="opacity-50 text-nowrap"><span class="badge bg-success"> {{ article.quantity }} </span></small>
                   </div>
@@ -101,7 +106,9 @@ export default {
       transaction: null,
       articles: [],
       totalPrice : null,
-      loading: false
+      loading: false,
+      customerInfo: null,
+      formatStatus: null,
     };
   },
   async created () {
@@ -113,18 +120,45 @@ export default {
         this.transaction = await UserService.getOneTransaction(this.customerId, this.transactionId);
         const data = await (await UserService.getTransactionArticles(this.customerId , this.transactionId)).data
         this.articles = data.articles;
-        this.totalPrice = this.articles.totalArticleAmount;
-        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        this.totalPrice = data.totalArticleAmount;
+        this.getUser();
+        this.getCustomer(this.customerId);
+        this.formatStatusText();
         this.loading = false;
       } catch (error) {
-        
+        this.loading  = false;
+
       }
       
   },
   methods: {
     async getUser() {
       this.user = await UserService.getUserInfo();
+    },
+    async getCustomer(customerId) {
+      this.customerInfo = await UserService.getCustomerInfo(customerId);
+    },
+    async formatStatusText(){
+      if (this.transaction.status =="REFUSED")
+          this.formatStatus = "<span class='badge bg-danger'>"+this.transaction.status +"</span>";
+           
+      if (this.transaction.status == "SUCCESS" ){
+         
+           this.formatStatus = "<span class='badge bg-success'>"+this.transaction.status +"</span>";
+          console.log(this.formatStatus);
+           
+      } 
     }
+  },
+  computed: {
+    getMerchandSolde(){
+      if (this.transaction.status == "SUCCESS"){
+          return this.user.account.balance - this.totalPrice
+      }else {
+        return this.user.account.balance;
+      }
+    }
+   
   }
 };
 </script>

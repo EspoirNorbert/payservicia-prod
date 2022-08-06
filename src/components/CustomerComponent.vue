@@ -42,7 +42,10 @@
             <router-link class="btn btn-success me-3" 
              :to="'purchase/' + item.id + '/articles'"
              ><i class="bi bi-cart"></i> Achat</router-link>
-            <router-link :to="'customers/' + item.id + '/transactions'" 
+            <router-link 
+            
+            
+            :to="'customers/' + item.id + '/transactions'" 
               class="btn btn-success me-3"><i class="bi bi-wallet"></i> Transactions</router-link>
             <button 
             

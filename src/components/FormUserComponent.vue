@@ -5,7 +5,9 @@
         <div class="rounded d-flex justify-content-center">
           <div class="col-md-4 col-sm-12 shadow-sm border-radius w-50 p-5">
             <div class="text-center">
-              <h3 class="text-primary"> <i class="bi bi-person-circle"></i> {{ title }} </h3>
+              <h3 class="text-primary">
+                <i class="bi bi-person-circle"></i> {{ title }}
+              </h3>
             </div>
             <div class="p-4">
               <form @submit.prevent="handleClickedSubmit()">
@@ -22,7 +24,7 @@
                     required
                   />
                 </div>
-                   <div class="input-group mb-3">
+                <div class="input-group mb-3">
                   <span class="input-group-text bg-primary"
                     ><i class="bi bi-key-fill text-white"></i
                   ></span>
@@ -48,15 +50,15 @@
                 </div>
                 <div class="d-grid col-12 mx-auto">
                   <button class="btn btn-primary" type="submit">
-                    <span></span> {{ buttonText}}
+                    <span></span> {{ buttonText }}
                   </button>
                 </div>
-            
-                <p v-if="userType  == 'signin'">
-                   Vous avez déjà un compte ?
-                  <span  
-                  @click="goToPage()"
-                  class="text-primary spanForm"> Connectez-vous </span>
+
+                <p class="mt-3" v-if="userType == 'signup'">
+                  <span> Vous avez déjà un compte ? </span>
+                  <router-link class="text-primary spanForm" to="/login"
+                    >Connectez-vous</router-link
+                  >
                 </p>
               </form>
             </div>
@@ -74,9 +76,9 @@ import UserService from "@/services/UserService";
 export default {
   name: "FormUserComponent",
   props: {
-    title : {type: String},
-    buttonText : {type: String},
-    userType : {type: String}
+    title: { type: String },
+    buttonText: { type: String },
+    userType: { type: String },
   },
   data() {
     return {
@@ -89,9 +91,7 @@ export default {
       submitedText: "Sign in",
     };
   },
-created () {
-  
-},
+  created() {},
   methods: {
     isFieldEmpty() {
       if (
@@ -122,22 +122,21 @@ created () {
       if (!this.isFieldEmpty()) {
         if (this.isPasswordMatching()) {
           try {
-          console.log("Type " + this.userType);
-        
+            console.log("Type " + this.userType);
+
             let response = null;
-            if (this.userType == "customer"){ console.log("called");
-              response = await UserService.createCustomer(data);}
-            else 
-                response = await AuthService.signup(data);
+            if (this.userType == "customer") {
+              console.log("called");
+              response = await UserService.createCustomer(data);
+            } else response = await AuthService.signup(data);
             if (response.data) {
               const result = response.data;
               this.$toasted.info(result.message);
               // redirect vers la page d'authentification
 
-              if (this.userType == "customer"){
-                this.$router.push({path: "/user/sandbox/customers"})
-              } else
-                this.$router.push("login");
+              if (this.userType == "customer") {
+                this.$router.push({ path: "/user/sandbox/customers" });
+              } else this.$router.push("login");
             }
           } catch (error) {
             console.log(error);
@@ -152,12 +151,10 @@ created () {
         }
       }
     },
-    goToPage () {
-        if (this.userForm == "signup")
-            this.$router.push("signup")
-        else
-            this.$router.push("login")
-    }
+    goToPage() {
+      if (this.userForm == "signup") this.$router.push("signup");
+      else this.$router.push("login");
+    },
   },
   computed: {
     isActive: function () {
@@ -169,6 +166,6 @@ created () {
 </script>
 <style>
 .spanForm {
-    cursor: pointer;
+  cursor: pointer;
 }
 </style>

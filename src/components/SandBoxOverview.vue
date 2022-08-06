@@ -11,8 +11,9 @@
       </p>
       <hr />
       <div class="r">
-        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-          <div class="col shadow-sm p-4">
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
+          
+                <div class="col shadow-sm p-4">
             <div>
               <h4><i class="bi bi-people"></i> Creation des clients</h4>
               <p class="text-start">
@@ -25,12 +26,11 @@
               <div>
               <h4><i class="bi bi-wallet"></i> Transactions</h4>
               <p class="text-start">
-                Les transactions representent les payements effectuer par un utilisateurs test
+                Les transactions representent les payements effectuer par un utilisateurs test.
               </p>
-              <router-link to="sandbox/transactions" class="btn btn-primary d-block">Voir les transactions</router-link>
+              <router-link to="sandbox/customers" class="btn btn-primary d-block">Voir les transactions</router-link>
             </div>
           </div>
-          
           <div class="col-md-4 shadow-sm p-4">
             
             <div>
@@ -43,7 +43,7 @@
                   <li>Valider les articles puis payer et voir les details de la transaction</li>
                 </ol>
               </p>
-                <router-link to="sandbox/purchase" class="btn btn-primary d-block">Simuler Achat & payement</router-link>
+                <router-link to="/user/sandbox/purchase" class="btn btn-primary d-block">Simuler Achat & payement</router-link>
             </div>
           </div>
       

@@ -1,7 +1,8 @@
 <template>
   <div class="sandbox">
     <div class="text-white bg-success sandboxHeader">
-      <h2 class="p-3 text-white"><i class="bi bi-box"></i> Sandbox</h2>
+      <h2 class="p-3 text-white"><i class="bi bi-box"></i> Sandbox - Solde du compte du marchand 
+      {{ balance == null ? "....loading" : balance}} XOF </h2>
     </div>
     <div class="row">
       <div class="col-md-2">
@@ -23,12 +24,25 @@
 
 <script>
 import SandBoxMenu from "@/components/SandBoxMenu";
+import UserService from '@/services/UserService';
 
 export default {
   name: "SandBoxLayout",
   components: {
-    SandBoxMenu,
+    SandBoxMenu
   },
+  data() {
+      return {
+        balance: null
+    }
+  },
+  async created () {
+    try { 
+      this.balance = (await UserService.getUserInfo()).account.balance;
+    } catch (error) {
+      
+    }
+  }
 };
 </script>
 

@@ -17,9 +17,10 @@
       >
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Compte N°{{ customer.id }}</h5>
+            <h5 class="card-title">Compte N°{{ customer.id }} <small>{{ customer.email }}</small> </h5> <br>
+            <h6></h6>
             <p class="card-text">
-              Montant du compte {{ customer.account.balance }} FCFA
+              Montant du compte {{ customer.account.balance }} XOF
             </p>
             <router-link
               class="btn btn-success"

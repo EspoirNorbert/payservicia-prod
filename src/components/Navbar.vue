@@ -67,7 +67,8 @@ export default {
     async logout() {
         await AuthService.logout();
         this.$toasted.info("Aurevoir a la prochaine !");
-        this.$router.push('login');
+        //this.$router.push({name: "/login"});
+        window.location.href="/login"
     },
     setupData(){
       this.isAuth = AuthService.isAuth() ? true : false;

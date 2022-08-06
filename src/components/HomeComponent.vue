@@ -19,12 +19,12 @@
           He is easy to deploy and integrate in your application for payement
         </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button type="button" class="btn btn-success btn-lg px-4 gap-3">
-            Get started
-          </button>
-          <button type="button" class="btn btn-outline-success btn-lg px-4">
+          <routerLink to="/user/sandbox/purchase" type="button" class="btn  border border-3 rounded-pill btn-success btn-lg px-4 gap-3">
+            Simuler un payement
+          </routerLink>
+          <routerLink to="/docs" type="button" class="btn border border-3 rounded-pill btn-outline-success btn-lg px-4">
             Documentation
-          </button>
+          </routerLink>
         </div>
       </div>
     </div>

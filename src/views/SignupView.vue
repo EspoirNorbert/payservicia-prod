@@ -3,8 +3,8 @@
     <FormUserComponent 
       title="Creation de compte"
       buttonText="S'inscrire"
-      typeForm="signup"
-       />
+      userType="signup"
+    />
 </div>
 </template>
 <script>

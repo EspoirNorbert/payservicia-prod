@@ -30,9 +30,7 @@
               <th scope="col">Statut</th>
               <th scope="col">Type</th>
               <th scope="col">Reference</th>
-              <th scope="col">Montant Finale</th>
               <th scope="col">Montant</th>
-              <th scope="col">Date et Heure</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -42,13 +40,12 @@
               <td>{{ item.status }}</td>
               <td>{{ item.type }}</td>
               <td>{{ item.currency }}</td>
-              <td>{{ item.finalAmount }}</td>
               <td>{{ item.amount }}</td>
-              <td>{{ item.createAt }}</td>
               <td>
+               
                 <router-link
                   class="btn btn-success me-3"
-                  :to="'/user/sandbox/customers/' + customerId + '/transactions/' + item._id"
+                  :to="'/user/sandbox/purchase/' + customerId + '/transactions/' + item._id"
                   >Details</router-link
                 >
               </td>
