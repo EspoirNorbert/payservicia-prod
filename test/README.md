@@ -29,16 +29,21 @@ Entrer les identifiants du marchand qui se trouve dans le le fichier *user_crede
 Suivre le workflow pour faire le payement
 
 # Workflow à suivre pour simuler le payement
-1.  Cliquer sur le bouton **Simuler Achat & payement*** 
+
+# Etape 1 - Simulation d'un achat
+Cliquer sur le bouton **Simuler Achat & payement*** 
 ![SandBoxPageOverview](test_sandbox_page.png)
 
-2.  Choisir le client a test pour faire la transaction
+# Etape 2 - Choix du client
+Choisir le client a test pour faire la transaction
 ![PurchasePage](test_choice_customer_page.png)
 
-3.  Chosir les articles 
+# Etape 3 - Choix des articles
+Chosir les articles 
 ![ChoicePage](test_choicie_articles.png)
 
-4.  Cliquer sur le bouton ***Procceder au payement** 
+# Etape 4 - Payer
+Cliquer sur le bouton ***Procceder au payement** 
 ![ArticlePage](test_payement_articles.png)
 
 # Details de la transactions
