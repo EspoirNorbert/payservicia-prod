@@ -5,10 +5,10 @@ de paiement comme par exemple des factures , des articles achetes en ligne.
 Il est facile a integrer dans votre application pour le payement.
 
 # Lien vers payservicia
-[https://payservicia.herokuapp.com/](https://payservicia.herokuapp.com/)
+[https://payservicia.netlify.app/](https://payservicia.netlify.app/)
 
 # Lien vers la documentation en ligne
-[https://payservicia.herokuapp.com/docs](https://payservicia.herokuapp.com/docs)
+[https://payservicia.netlify.app/docs](https://payservicia.netlify.app/docs)
 
 # Documentation de l'API REST de payservicia
 API REST Payservicia est une API qui a été mise en place pour pouvoir faciliter et simuler les systemes de payements d'articles en ligne. Elle est facile à utiliser et integrer dans votre systeme .
