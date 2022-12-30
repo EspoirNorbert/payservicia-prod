@@ -1,6 +1,6 @@
 import axios from "axios";
 export default axios.create({
-  baseURL: "http://localhost:25070/v1.0",
+  baseURL: "https://nores-api-payement.deta.dev/",
   headers: {
     "Content-type": "application/json"
   }
